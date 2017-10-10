@@ -1,10 +1,9 @@
 
 function setPosition(id, axis, pixels){
-
-document.getElementById(id).style[axis] = (pixels + 'px')
-
+	
 	/* sets the position of the DOM element with specified id (string) along specified axis 'top' or 'left' */
-
+	
+	document.getElementById(id).style[axis] = (pixels + 'px')
 }
 
 
@@ -42,6 +41,7 @@ function moveBall(id, pixels, axis){
 }
 
 function didWin(id){
+	
 	/* returns true if DOM element with id (string) is inside the 'hole' element otherwise returns false */
 
 	let hole = {x: getPosition('hole','left'), y: getPosition('hole', 'top')}
@@ -66,6 +66,7 @@ function onKeyPress(e) {
 	it checks if either player has won and if so it alerts a winning message otherwise
 	it will call the moveBall functions according to the key which was pressed
 	*/
+	
 	console.log(e.keyCode)
 	if( didWin('ball1') ){
 		alert('player 1 won');
