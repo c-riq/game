@@ -1,6 +1,8 @@
 
 function setPosition(id, axis, pixels){
 
+document.getElementById(id).style[axis] = (pixels + 'px')
+
 	/* sets the position of the DOM element with specified id (string) along specified axis 'top' or 'left' */
 
 }
@@ -31,32 +33,40 @@ function getPosition(id, axis){
 }
 
 
-function moveBallX(id, x){
+function moveBall(id, pixels, axis){
 
-	/* moves DOM element with specified id (string) by x (number) pixels to the right */
-
-}
-
-function moveBallY(id, y){
-
-	/* moves DOM element with specified id (string) by y (number) pixels down */
+	let currentPosition = getPosition(id, axis)
+	let newPosition = currentPosition + pixels;
+	setPosition(id, axis, newPosition)
 
 }
 
 function didWin(id){
-
 	/* returns true if DOM element with id (string) is inside the 'hole' element otherwise returns false */
+
+	let hole = {x: getPosition('hole','left'), y: getPosition('hole', 'top')}
+	let ball = {x: getPosition(id,'left'), y: getPosition(id, 'top')}
+
+	let result = false;
+
+	if( (ball.x > hole.x) && (ball.x < (hole.x + 20) ) ){
+		if( (ball.y > hole.y) && (ball.y < (hole.y + 20) ) ){
+			result = true;
+		}
+	}
+
+	return  result;
 
 }
 
 function onKeyPress(e) {
 
-	/* 
-	this function will be triggered every time a player presses a key 
-	it checks if either player has won and if so it alerts a winning message otherwise 
-	it will call the moveBall functions according to the key which was pressed 
+	/*
+	this function will be triggered every time a player presses a key
+	it checks if either player has won and if so it alerts a winning message otherwise
+	it will call the moveBall functions according to the key which was pressed
 	*/
-
+	console.log(e.keyCode)
 	if( didWin('ball1') ){
 		alert('player 1 won');
 		return;
@@ -65,25 +75,20 @@ function onKeyPress(e) {
 		alert('player 2 won');
 		return;
 	}
-	
+
 	/* missing code!
 
 	switch(e.keyCode){
-		case 99: 
-			moveBallX('ball1', 10);
+		case 39:
+			moveBall('ball1', 10, 'left');
 			break;
 			...
 	}
 	*/
 }
 
-window.onload = function(){	
+window.onload = function(){
 
 	document.body.setAttribute('onkeydown', 'onKeyPress(event)');
 	setCubePositions()
 }
-
-
-
-
-
